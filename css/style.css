@@ -1,4 +1,22 @@
+body {
+background: #484848; 
+}
+
 img {
 max-width: 100%;
+margin-bottom: 50px;
+}
+
+p {
+color: white;
+margin-bottom: 50px;
+margin-left: 10%;
+font-size: 1.5em;
+}
+
+article {
+
+margin: 10%;
+
 }
 
