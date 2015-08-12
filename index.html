@@ -1,54 +1,453 @@
 <!DOCTYPE html>
-<html manifest="example.appcache">
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Sketches by AngryOpossum</title>
-        <meta name="description" content="Sketches by AngryOpossum">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="Sketch,art,drawing,AngryOpossum,moleskine,artworks">
-        <meta name="author" content="AngryOpossum">
-
-          <link rel="stylesheet" href="css/normalize.css">
-          <link rel="stylesheet" href="css/grid.css">
-          <link rel="stylesheet" href="css/style.css" type="text/css" />
+<html>
+<head>
+<title>@AngryOpossum artworks</title>
+<meta name="description" content="BlocksIt.js jQuery plugin Demonstration #2 Pinterest dynamic grid with CSS3 Transitions by inWebson.com"/>
+<meta name="keywords" content="demonstration,demo,jquery,blocksit.js,css3,dynamic,grid,layout,inwebson"/>
+<link rel='stylesheet' href='style.css' media='screen' />
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> --> 
 
 
+<!-- Add jQuery library -->
+	<script type="text/javascript" src="lib/jquery-1.10.1.min.js"></script> 
 
-        <!--[if IE]>
-          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="source/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="source/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*w
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
 
 
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+	</script>
+	<!--
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+
+		body {
+			max-width: 700px;
+			margin: 0 auto;
+		}
+	</style>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="blocksit.min.js"></script>
+<script>
+$(document).ready(function() {
+	//vendor script
+	$('#header')
+	.css({ 'top':-50 })
+	.delay(1000)
+	.animate({'top': 0}, 800);
+	
+	$('#footer')
+	.css({ 'bottom':-15 })
+	.delay(1000)
+	.animate({'bottom': 0}, 800);
+	
+	//blocksit define
+	$(window).load( function() {
+		$('#container').BlocksIt({
+			numOfCol: 5,
+			offsetX: 8,
+			offsetY: 8
+		});
+	});
+	
+	//window resize
+	var currentWidth = 1100;
+	$(window).resize(function() {
+		var winWidth = $(window).width();
+		var conWidth;
+		if(winWidth < 660) {
+			conWidth = 440;
+			col = 2
+		} else if(winWidth < 880) {
+			conWidth = 660;
+			col = 3
+		} else if(winWidth < 1100) {
+			conWidth = 880;
+			col = 4;
+		} else {
+			conWidth = 1100;
+			col = 5;
+		}
+		
+		if(conWidth != currentWidth) {
+			currentWidth = conWidth;
+			$('#container').width(conWidth);
+			$('#container').BlocksIt({
+				numOfCol: col,
+				offsetX: 8,
+				offsetY: 8
+			});
+		}
+	});
+});
+</script>
+<link rel="shortcut icon" href="http://www.inwebson.com/wp-content/themes/inwebson2/favicon.ico" />
+<link rel="canonical" href="http://www.inwebson.com/demo/blocksit-js/demo2/" />
 </head>
 
+
+
 <body>
-  <header>
-<p>
-    <img src="img/logo.png" alt="logo"/>
-   <br>
-  Sketches by Angryopossum<br>
-    <a href=""><img src="img/gallery_button.png" alt="gallery"/></a></p>
-  </header>
-  <article>
-    <img src="img/portret.jpg" alt="portret"/>
-    <img src="img/olen.jpg" alt="deer"/>
-    <img src="img/men.jpg" alt="Oriental men"/>
-    <img src="img/gunmen.jpg" alt="gunmen"/>
-    <img src="img/men2.jpg" alt="men"/>
-  </article>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<!-- Header 
+<header id="header">
+	<h1>BlocksIt.js | Dynamic Grid Layout jQuery Plugin</h1>
+	<div id="backlinks">
+		<a href="../">Back to Home Page &raquo;</a>
+		<a href="http://www.inwebson.com/jquery/blocksit-js-dynamic-grid-layout-jquery-plugin/">Visit Plugin Article Page &raquo;</a>
+	</div>
+	<div class="clearfix"></div>
+</header>
+-->
+<!-- Content -->
+<section id="wrapper">
+	<hgroup>
+		<h2>@AngryOpossum</h2> 
+		<h3>artworks gallery</h3>
+	</hgroup>
+<div id="container">
+	<div class="grid">
+		<div class="imgholder">
+		<a class="fancybox-effects-a" href="img/freaks_small.jpg" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"><img src="img/freaks_small.png" /></a>	
+		</div>
+		<strong>Freak school</strong>
+		<p>20x30 pensils</p>
+		<div class="meta">2013</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img26.jpg" />
+		</div>
+		<strong>Bridge to Heaven</strong>
+		<p>Where is the bridge lead to?</p>
+		<div class="meta">by SigitEko</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img15.jpg" />
+		</div>
+		<strong>Autumn</strong>
+		<p>The fall of the tree...</p>
+		<div class="meta">by Lars van de Goor</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img23.jpg" />
+		</div>
+		<strong>Winter Whisper</strong>
+		<p>Winter feel...</p>
+		<div class="meta">by Andrea Andrade</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img17.jpg" />
+		</div>
+		<strong>Light</strong>
+		<p>The only shinning light...</p>
+		<div class="meta">by Lars van de Goor</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img22.jpg" />
+		</div>
+		<strong>Rooster's Ranch</strong>
+		<p>Rooster's ranch landscape...</p>
+		<div class="meta">by Andrea Andrade</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="img/Wallpaper.png" />
+		</div>
+		<strong>Autumn Light</strong>
+		<p>Sun shinning into forest...</p>
+		<div class="meta">by Lars van de Goor</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img21.jpg" />
+		</div>
+		<strong>Yellow cloudy</strong>
+		<p>It is yellow cloudy...</p>
+		<div class="meta">by Zsolt Zsigmond</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+		<a class="fancybox-effects-a" href="img/Wallpaper.png" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit"><img src="img/Wallpaper.png" /></a>	
+		</div>
+		<strong>Freak school</strong>
+		<p>20x30 pensils</p>
+		<div class="meta">2013</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img2.jpg" />
+		</div>
+		<strong>Battle Field</strong>
+		<p>Battle Field for you...</p>
+		<div class="meta">by Andrea Andrade</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img24.jpg" />
+		</div>
+		<strong>Sundays Sunset</strong>
+		<p>Beach view sunset...</p>
+		<div class="meta">by Robert Strachan</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img19.jpg" />
+		</div>
+		<strong>Sun Flower</strong>
+		<p>Good Morning Sun flower...</p>
+		<div class="meta">by Zsolt Zsigmond</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img5.jpg" />
+		</div>
+		<strong>Beach</strong>
+		<p>Something on beach...</p>
+		<div class="meta">by unknown</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img25.jpg" />
+		</div>
+		<strong>Flowers</strong>
+		<p>Hello flowers...</p>
+		<div class="meta">by R A Stanley</div>
+	</div>
+	<div class="grid">
+		<div class="imgholder">
+			<img src="http://www.inwebson.com/demo/blocksit-js/demo2/images/img20.jpg" />
+		</div>
+		<strong>Alone</strong>
+		<p>Lonely plant...</p>
+		<div class="meta">by Zsolt Zsigmond</div>
+	</div> <!---->
+</div>
+</section>
+<center>
+ <img src="img/pinterest-32.png" />
+ <img src="img/tumblr-32.png" />
+ <img src="img/github-32.png" />
+ <img src="img/behance-32.png" />
+ <img src="img/instagram-32.png" />
+ <img src="img/deviantart-32.png" />
+ <br>&nbsp;
+</center>
 
-  ga('create', 'UA-49585316-1', 'angryopossum.github.io');
-  ga('send', 'pageview');
 
-</script>
-
+<!-- Footer 
+<footer id="footer">
+	<span>&copy; 2012 <a href="http://www.inwebson.com">inWebson.com</a>. Design by <a href="http://www.inwebson.com/contactus">Kenny Ooi</a>. Powered by <a href="http://www.inwebson.com/jquery/">jQuery</a>.</span>
+</footer>
+-->
 </body>
 </html>
